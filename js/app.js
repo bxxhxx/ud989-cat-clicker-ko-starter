@@ -16,9 +16,15 @@ var Cat = function() {
 };
 
 var ViewModel = function() {
+    //using this var called self, we can ignore the "with"
+    //context in html
+    var self = this;
+
     this.currentCat = ko.observable(new Cat());
+
     this.incrementCounter = function() {
-        this.currentCat().clickCount(this.currentCat().clickCount() + 1);
+        self.currentCat().clickCount(self.currentCat().clickCount() + 1);
+        //now the action above will ignore any "with" context set in the html
     };
 }
 
