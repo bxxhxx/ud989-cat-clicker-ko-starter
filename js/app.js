@@ -1,32 +1,25 @@
-var ViewModel = function() {
+var Cat = function() {
+    this.clickCount = ko.observable(0);
+    this.name = ko.observable('Tabby');
+    this.imgSrc = ko.observable('img/22252709_010df3379e_z.jpg');
+    this.nickName = ko.observableArray(['Bert', 'Charles', 'Denise']);
 
-    var self = this;
-
-    self.clickCount = ko.observable(0);
-    self.name = ko.observable('Tabby');
-    self.imgSrc = ko.observable('img/22252709_010df3379e_z.jpg');
-
-    self.incrementCounter = function() {
-        self.clickCount(self.clickCount() + 1);
-    };
-
-    self.catLevel = ko.computed(function() {
-        if (self.clickCount() < 10) {
+    this.catLevel = ko.computed(function() {
+        if (this.clickCount() < 10) {
             return "New Born";
-        } else if (self.clickCount() < 20) {
+        } else if (this.clickCount() < 20) {
             return "Infant";
         } else {
             return "Teen";
         }
-    }, self);
+    }, this);
 };
 
-self.nickName = ko.observableArray([{
-    name: 'Bert'
-}, {
-    name: 'Charles'
-}, {
-    name: 'Denise'
-}]);
+var ViewModel = function() {
+    this.currentCat = ko.observable(new Cat());
+    this.incrementCounter = function() {
+        this.currentCat().clickCount(this.currentCat().clickCount() + 1);
+    };
+}
 
 ko.applyBindings(new ViewModel());
